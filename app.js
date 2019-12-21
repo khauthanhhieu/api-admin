@@ -2,8 +2,7 @@ const express = require('express')
 const app = express()
 
 const jwt = require('jsonwebtoken');
-//const passport = require('./passport')
-//const AuthService = require('./services/auth')
+const passport = require('./passport')
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
@@ -13,15 +12,16 @@ var cookieParser = require('cookie-parser');
 app.use(cookieParser())
 
 // Router
-//const userRouter = require('./routes/user')
+const authRouter = require('./routes/auth')
 
 // user Router
-//app.use('/api/user', userRouter);
+app.use('/api', authRouter);
 
 app.get('/', function (req, res) {
   res.send('Xin chào, đây là API quản trị')
 })
 
-app.listen(3000, function () {
-  console.log('Web app service listening on port 3000!')
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function () {
+  console.log(`Web app service listening on port ${PORT}!`)
 })
